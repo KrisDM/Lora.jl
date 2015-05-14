@@ -32,6 +32,8 @@ import Distributions:
 
 export
   ### types
+  Sampleability,
+  Variable,
   MCLikelihood,
   MCChain,
   ARS,
@@ -63,6 +65,7 @@ export
   quadraticzv
 
 include("api/api.jl")
+include("api/variables.jl")
 include("api/samples.jl")
 include("api/states.jl")
 include("api/chains.jl")
