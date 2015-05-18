@@ -33,6 +33,9 @@ import Distributions:
 export
   ### types
   Sampleability,
+  Constant,
+  Deterministic,
+  Random,
   Variable,
   MCLikelihood,
   MCChain,
