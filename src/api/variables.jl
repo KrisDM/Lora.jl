@@ -11,17 +11,17 @@ determined either by sampling directly from its distribution or indirectly via M
 abstract Sampleability
 
 @doc doc"""
-Fore more information on `Constant`, see the documentation of `Sampleability`.
+For more information on `Constant`, see documentation on *Sampleability*.
 """->
 type Constant <: Sampleability end
 
 @doc doc"""
-Fore more information on `Deterministic`, see the documentation of `Sampleability`.
+For more information on `Deterministic`, see documentation on *Sampleability*.
 """->
 type Deterministic <: Sampleability end
 
 @doc doc"""
-Fore more information on `Random`, see the documentation of `Sampleability`.
+For more information on `Random`, see documentation on *Sampleability*.
 """->
 type Random <: Sampleability end
 
@@ -30,11 +30,26 @@ type Random <: Sampleability end
 ### VariateForm and ValueSupport types imported from Distributions package
 
 @doc doc"""
+Instances of `Variable` are the building blocks of a *Model*. For example, a *Variable* can be used for defining
+hyper-parameters, data, deterministic or random variables in a *Model*.
+
+A *Model* can be seen as a graph, whose vertices are instances of *Variable* and edges connect dependent *Variable*
+nodes. In fact, it is possible to convert a *Model* to a graph as an instance of the *GenericGraph* type of the
+*Graphs* package.
+
+A *Model* is a parametric type parameterized by:
+
+* *VaritateForm*: Abstract type with sub-types *Univariate*, *Multivariate* and *Matrixvariate*. See *Distributions*
+package.
+* *ValueSupport*: Abstract type with sub-types *Discrete* and *Continuous*. See *Distributions* package.
+* *Sampleability*: Abstract type with sub-types *Constant*, *Deterministic* and *Random*. See documentation on
+*Sampleability*.
 """->
 abstract Variable{F<:VariateForm, S<:ValueSupport, A<:Sampleability}
 
-### Variable parametric sub-types
-### To avoid elongated parametric sub-type names, the following abbreviations will be used:
-### Univariate    : U
-### Multivariate  : V
-### Matrixvariate : M
+typealias Data{F<:VariateForm, S<:ValueSupport} Variable{F, S, Constant}
+typealias Hyperparameter{F<:VariateForm, S<:ValueSupport} Variable{F, S, Constant}
+
+typealias Transformation{F<:VariateForm, S<:ValueSupport} Variable{F, S, Deterministic}
+
+typealias Parameter{F<:VariateForm, S<:ValueSupport} Variable{F, S, Random}
